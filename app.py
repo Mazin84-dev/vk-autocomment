@@ -9,8 +9,17 @@ CONFIRMATION_TOKEN = "9812e39c"
 API_VERSION = "5.199"
 
 COMMENT_TEXT = (
-    "Для заказа напишите в сообщения сообщества или в Telegram @home_ecomm 💛\n"
-    "Пришлите ссылку, фото или название товара."
+    "💛 Хотите заказать? Это просто:
+
+Напишите нам:
+👉 Telegram — https://t.me/Home_ecomm_chat  
+👉 МАКС — https://max.ru/u/f9LHodD0cOJLvfkeeIZYbgvw2yDirTgrbs57bD6-XoHF4pOyv9Rhv-mLuG4  
+
+Пришлите ссылку на пост или скрин ✨
+
+📦 Подписывайтесь на канал:
+Telegram — https://t.me/home_ecomm  
+МАКС — https://max.ru/id504212586564_biz"
 )
 
 # Чтобы не было дублей при повторной отправке одного и того же события
