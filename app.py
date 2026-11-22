@@ -1,11 +1,13 @@
 from flask import Flask, request
+import os
+
 import requests
 
 app = Flask(__name__)
 
 # ====== НАСТРОЙКИ ======
-GROUP_TOKEN =  "vk1.a.McRSFdJDhI0Bd_LWLOv0w9Uzlkpmec21eEqGCl-s9svyMLhIlRfRCP3LUY-7QmiHgtrYT1bIsXmgQ3zyq_Z_tugymmjcmZQhIHWK9tFlzTHcjjk_leYPP7RyVZYf010Kts9MtuJChxkZQDcyMuqBcAcCnYHPA-gTybayfQNCQ8ihyZH6FOAmNAPHpbMtsFWTsfwf9mbkSPWjBCZzrPZbMw"
-CONFIRMATION_TOKEN = "9812e39c"
+GROUP_TOKEN = os.environ.get("VK_GROUP_TOKEN", "").strip()
+CONFIRMATION_TOKEN = os.environ.get("VK_CONFIRMATION_TOKEN", "").strip()
 API_VERSION = "5.199"
 
 COMMENT_TEXT = (
@@ -24,6 +26,9 @@ processed_posts = set()
 
 
 def create_comment(owner_id: int, post_id: int, message: str):
+    if not GROUP_TOKEN:
+        return {"error": "VK_GROUP_TOKEN is not configured"}
+
     url = "https://api.vk.com/method/wall.createComment"
     data = {
         "owner_id": owner_id,
@@ -53,6 +58,8 @@ def callback():
 
     # Шаг подтверждения Callback API
     if event_type == "confirmation":
+        if not CONFIRMATION_TOKEN:
+            return "VK_CONFIRMATION_TOKEN is not configured", 503
         return CONFIRMATION_TOKEN
 
     # Новый пост на стене сообщества
